@@ -1,0 +1,73 @@
+/* Name: M.Haroon-Ur-Rasheed Khan | Reg. No: Ai-9 | Subject: DSA | Sec: A */
+// Lab 07 Part A: Menu-driven doubly linked list
+
+#include "Lab_07_Part_A_Doubly_List.h"
+
+int main()
+{
+    DoublyLinkedList session;
+    int choice;
+
+    do
+    {
+        cout << "\n===== Library Borrowing Session =====\n";
+        cout << "1. Display Current Book\n";
+        cout << "2. Move to Next Book\n";
+        cout << "3. Move to Previous Book\n";
+        cout << "4. Insert Book at End\n";
+        cout << "5. Insert Book After Current\n";
+        cout << "6. Remove Current Book\n";
+        cout << "7. Display First to Last\n";
+        cout << "8. Display Last to First\n";
+        cout << "9. Exit\nChoice: ";
+        cin >> choice;
+
+        if (choice == 1)
+            session.PrintCurrent();
+        else if (choice == 2)
+        {
+            session.Next();
+            session.PrintCurrent();
+        }
+        else if (choice == 3)
+        {
+            session.Previous();
+            session.PrintCurrent();
+        }
+        else if (choice == 4 || choice == 5)
+        {
+            int id;
+            string title;
+            cout << "Book ID: ";
+            cin >> id;
+            cin.ignore();
+            cout << "Book Title: ";
+            getline(cin, title);
+
+            if (choice == 4)
+                session.InsertRight(new dNode(id, title));
+            else
+                session.InsertAfterCurrent(new dNode(id, title));
+        }
+        else if (choice == 6)
+        {
+            dNode* removed = session.RemoveCurrent();
+            if (removed != nullptr)
+            {
+                cout << "Removed: " << removed->title << '\n';
+                delete removed;
+            }
+            else
+                cout << "Session is empty.\n";
+        }
+        else if (choice == 7)
+            session.PrintForward();
+        else if (choice == 8)
+            session.PrintBackward();
+        else if (choice != 9)
+            cout << "Invalid choice.\n";
+
+    } while (choice != 9);
+
+    return 0;
+}
